@@ -1,16 +1,17 @@
 extends layout
 
 block content
-  h1 #{title}: #{author.name}
+  h1(class="mb-4") Eliminar Autor
+  h3 #{author.name}
   p= author.lifespan
   
   if author_books.length
   
-    p #[strong Delete the following books before attempting to delete this author.]
+    p #[strong Borrar todos los libros antes de poder eliminar el autor.]
   
     div(style='margin-left:20px;margin-top:20px')
 
-      h4 Books
+      h4 Libros
     
       dl
       each book in author_books
@@ -19,10 +20,14 @@ block content
         dd #{book.summary}
 
   else
-    p Do you really want to delete this Author?
+    p Estas seguro que desea eliminar el siguiente Autor?
     
     form(method='POST' action='')
       div.form-group
         input#authorid.form-control(type='hidden',name='authorid', required='true', value=author._id )
 
-      button.btn.btn-danger(type='submit') Delete
+      button.btn.btn-danger(type='submit') Eliminar
+  
+  div(class="icon-return")
+    a(href='/catalog/authors' data-toggle="tooltip" data-placement="left" title="Regresar")
+      i(class="fas fa-arrow-alt-circle-left mb-5 mt-5" style="font-size:35px;color: #339af0")

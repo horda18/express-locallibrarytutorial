@@ -1,14 +1,29 @@
 extends layout
 
 block content
-  h1= title
+  h1 Lista de Libros
+  p
+    a(href='/catalog/book/create' class="btn btn-success mt-4") Nuevo Libro
   
-  ul
-    - book_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
-    each book in book_list
-      li 
-        a(href=book.url) #{book.title} 
-        |  (#{book.author.name})
+  div(class="container")
+    table(class="table mt-5 mb-5")
+      thead
+        tr
+          th Libros
+          th Autor
+          th Acciones
 
-    else
-      li There are no books.
+        - book_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+        each book in book_list
+         tr(class="table-hover")
+            td #{book.title}
+            td #{book.author.name}
+            td 
+              a(href=book.url+'/update')
+                i(class="fas fa-pencil-alt pr-2")
+              a(href=book.url+'/delete')
+                i(class="fas fa-trash-alt pr-2")
+              a(href=book.url)
+                i(class="fas fa-info pr-2")
+        else
+          li There are no books.

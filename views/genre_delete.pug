@@ -1,15 +1,15 @@
 extends layout
 
 block content
-  h1 #{title}: #{genre.name}
+  h1 #{genre.name}
   
   if genre_books.length
   
-    p #[strong Delete the following books before attempting to delete this genre.]
+    p #[strong Borrar todos los libros antes de eliminar este genero.]
   
     div(style='margin-left:20px;margin-top:20px')
 
-      h4 Books
+      h4 Libros
     
       dl
       each book in genre_books
@@ -18,10 +18,14 @@ block content
         dd #{book.summary}
 
   else
-    p Do you really want to delete this Genre?
+    p Esta seguro que desea eliminar el siguiente genero?
     
     form(method='POST' action='')
       div.form-group
         input#id.form-control(type='hidden',name='id', required='true', value=genre._id )
 
-      button.btn.btn-danger(type='submit') Delete
+      button.btn.btn-danger(type='submit') Eliminar
+
+  div(class="icon-return")
+    a(href='/catalog/genres' data-toggle="tooltip" data-placement="left" title="Regresar")
+      i(class="fas fa-arrow-alt-circle-left mb-5 mt-5" style="font-size:35px;color: #339af0")

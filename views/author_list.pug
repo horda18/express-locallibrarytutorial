@@ -1,13 +1,28 @@
 extends layout
 
 block content
-  h1= title
+  h1 Lista de Autores
+  p
+    a(href='/catalog/author/create' class="btn btn-success mt-4") Nuevo Autor
   
-  ul
-    each author in author_list
-      li 
-        a(href=author.url) #{author.name} 
-        |  (#{author.lifespan})
-    
-    else  
-      li There are no authors.
+  div(class="container")
+    table(class="table mt-5 mb-5")
+      thead
+        tr
+          th Nombre
+          th Fecha Nacimiento/Defuncion
+          th Acciones
+
+        each author in author_list
+         tr(class="table-hover")
+            td #{author.name}
+            td #{author.lifespan}
+            td 
+              a(href=author.url+'/update')
+                i(class="fas fa-pencil-alt pr-2")
+              a(href=author.url+'/delete')
+                i(class="fas fa-trash-alt pr-2")
+              a(href=author.url)
+                i(class="fas fa-info pr-2")
+        else
+          li There are no authors.

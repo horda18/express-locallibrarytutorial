@@ -1,13 +1,26 @@
 extends layout
 
 block content
-  h1= title
+  h1 Lista de Generos
+  p
+    a(href='/catalog/genre/create' class="btn btn-success mt-4") Nuevo Genero
   
-  ul
-    each genre in genre_list
-      li 
-        a(href=genre.url) #{genre.name} 
-        //|  #{genre.name} view
-    
-    else  
-      li There are no authors.
+  div(class="container")
+    table(class="table mt-5 mb-5 text-center")
+      thead
+        tr
+          th Nombre
+          th Acciones
+
+        each genre in genre_list
+         tr(class="table-hover")
+            td #{genre.name}
+            td 
+              a(href=genre.url+'/update')
+                i(class="fas fa-pencil-alt pr-3")
+              a(href=genre.url+'/delete')
+                i(class="fas fa-trash-alt pr-3")
+              a(href=genre.url)
+                i(class="fas fa-info pr-3")
+        else
+          li There are no genres.

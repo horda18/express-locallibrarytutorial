@@ -1,21 +1,38 @@
 extends layout
 
 block content
-  h1= title
+  h1 Sumario
+  p
+    a(href='/catalog/bookinstance/create' class="btn btn-success mt-4") Nuevo Registro
+  
+  div(class="container")
+    table(class="table mt-5 mb-5")
+      thead
+        tr
+          th Libro
+          th Edición
+          th Estado
+          th Acciones
 
-  ul
-  each val in bookinstance_list
-    li 
-      a(href=val.url) #{val.book.title} : #{val.imprint} - 
-      if val.status=='Available'
-        span.text-success #{val.status}
-      else if val.status=='Maintenance'
-        span.text-danger #{val.status}
-      else
-        span.text-warning #{val.status} 
-      if val.status!='Available'
-        span  (Due: #{val.due_back_formatted} )
-        
-
-  else
-    li There are no book copies in this library
+        each val in bookinstance_list
+         tr(class="table-hover")
+            td #{val.book.title}
+            td #{val.imprint}
+            td
+              if val.status=='Disponible'
+                span.text-success #{val.status}
+              else if val.status=='Mantenimiento'
+                span.text-danger #{val.status}
+              else
+                span.text-warning #{val.status} 
+              if val.status!='Disponible'
+                span  (Disponible para: #{val.due_back_formatted} )
+            td 
+              a(href=val.url+'/update')
+                i(class="fas fa-pencil-alt pr-2")
+              a(href=val.url+'/delete')
+                i(class="fas fa-trash-alt pr-2")
+              a(href=val.url)
+                i(class="fas fa-info pr-2")
+        else
+          li There are no book copies in this library

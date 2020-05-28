@@ -2,46 +2,51 @@ extends layout
 
 block content
 
-  h1 #{title}: #{book.title}
+  h1(class="mb-4") Eliminar Libro
+  h3 #{book.title}
   
-  p #[strong Author:] 
+  p #[strong Autor:] 
     a(href=book.author.url) #{book.author.name}
-  p #[strong Summary:] #{book.summary}
-  p #[strong ISBN:] #{book.isbn}
-  p #[strong Genre:] 
+  p #[strong Síntesis:] #{book.summary}
+  p #[strong Código:] #{book.isbn}
+  p #[strong Genero:] 
     each val in book.genre
       a(href=val.url) #{val.name}
-      |, 
+      
 
   hr
   
   if book_instance.length
   
-    p #[strong Delete the following copies before attempting to delete this Book.]
+    p #[strong Borrar todas las copias antes de eliminar el libro.]
   
     div(style='margin-left:20px;margin-top:20px')
 
-      h4 Copies
+      h4 Copias
     
-        each book_copy in book_instance
-          hr
-          if book_copy.status=='Available'
-            p.text-success #{book_copy.status}
-          else if book_copy.status=='Maintenance'
-            p.text-danger #{book_copy.status}
-          else
-            p.text-warning #{book_copy.status} 
-          p #[strong Imprint:] #{book_copy.imprint}
-          if book_copy.status!='Available'
-            p #[strong Due back:] #{book_copy.due_back}
-          p #[strong Id:] 
-            a(href=book_copy.url) #{book_copy._id}
+      each book_copy in book_instance
+        hr
+        if book_copy.status=='Disponible'
+          p.text-success #{book_copy.status}
+        else if book_copy.status=='Mantenimiento'
+          p.text-danger #{book_copy.status}
+        else
+          p.text-warning #{book_copy.status} 
+        p #[strong Síntesis:] #{book_copy.imprint}
+        if book_copy.status!='Disponible'
+          p #[strong Disponible para:] #{book_copy.due_back_formatted}
+        p #[strong Id:] 
+          a(href=book_copy.url) #{book_copy._id}
 
   else
-    p Do you really want to delete this Book?
+    p Estas seguro que quieres eliminar este libro?
     
     form(method='POST' action='')
       div.form-group
         input#id.form-control(type='hidden',name='id', required='true', value=book._id )
 
-      button.btn.btn-danger(type='submit') Delete
+      button.btn.btn-danger(type='submit') Eliminar
+  
+  div(class="icon-return")
+    a(href='/catalog/books' data-toggle="tooltip" data-placement="left" title="Regresar")
+      i(class="fas fa-arrow-alt-circle-left mb-5 mt-5" style="font-size:35px;color: #339af0")

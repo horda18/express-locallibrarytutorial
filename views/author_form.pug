@@ -1,21 +1,28 @@
 extends layout
 
 block content
-  h1=title
+  if(h1= title === 'Update Author')
+    h1(class="mb-4") Editar Autor
+  else
+    h1(class="mb-4") Crear Autor
 
   form(method='POST' action='')
     div.form-group
-      label(for='first_name') First Name:
+      label(for='first_name') Nombre:
       input#first_name.form-control(type='text' placeholder='First name (Christian) last' name='first_name' required='true' value=(undefined===author ? '' : author.first_name) )
-      label(for='family_name') Family Name:
+      label(for='family_name') Apellido:
       input#family_name.form-control(type='text' placeholder='Family name (surname)' name='family_name' required='true' value=(undefined===author ? '' : author.family_name))
     div.form-group
-      label(for='date_of_birth') Date of birth:
+      label(for='date_of_birth') Fecha de Nacimiento:
       input#date_of_birth.form-control(type='date' name='date_of_birth' value=(undefined===author ? '' : author.date_of_birth_yyyy_mm_dd) )
-      label(for='date_of_death') Date of death:
+      label(for='date_of_death') Fecha de Defunción:
       input#date_of_death.form-control(type='date' name='date_of_death' value=(undefined===author ? '' : author.date_of_death_yyyy_mm_dd) )
-    button.btn.btn-success(type='submit') Submit
+    button.btn.btn-success(type='submit') Guardar
   if errors 
     ul
       for error in errors
         li!= error.msg
+
+  div(class="icon-return")
+      a(href='/catalog/authors' data-toggle="tooltip" data-placement="left" title="Regresar")
+        i(class="fas fa-arrow-alt-circle-left mb-5 mt-5" style="font-size:35px;color: #339af0")

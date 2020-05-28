@@ -1,15 +1,22 @@
 extends layout
 
 block content
-  h1 #{title}
+  if(h1= title === 'Update Genre')
+    h1(class="mb-4") Editar Genero
+  else
+    h1(class="mb-4") Crear Genero
 
   form(method='POST' action='')
     div.form-group
-      label(for='name') Genre:
+      label(for='name') Genero:
       input#name.form-control(type='text', placeholder='Fantasy, Poetry etc.' name='name' value=(undefined===genre ? '' : genre.name))
-    button.btn.btn-success(type='submit') Submit
+    button.btn.btn-success(type='submit') Guardar
 
   if errors 
    ul
     for error in errors
      li!= error.msg
+ 
+  div(class="icon-return")
+    a(href='/catalog/genres' data-toggle="tooltip" data-placement="left" title="Regresar")
+      i(class="fas fa-arrow-alt-circle-left mb-5 mt-5" style="font-size:35px;color: #339af0")

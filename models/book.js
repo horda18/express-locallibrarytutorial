@@ -19,5 +19,11 @@ BookSchema
   return '/catalog/book/' + this._id;
 });
 
+BookSchema
+    .virtual('due_back_formatted')
+    .get(function () {
+        return moment(this.due_back).format('MMMM Do, YYYY');
+    });
+
 //Export model
 module.exports = mongoose.model('Book', BookSchema);

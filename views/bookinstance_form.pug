@@ -1,34 +1,41 @@
 extends layout
 
 block content
-  h1=title
+  if(h1= title === 'Update BookInstance')
+    h1(class="mb-4") Editar Sumario
+  else
+    h1(class="mb-4") Crear Sumario
 
   form(method='POST' action='')
     div.form-group
-      label(for='book') Book:
+      label(for='book') Libro:
       select#book.form-control(type='select', placeholder='Select book' name='book' required='true' )
         - book_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
         for book in book_list
           option(value=book._id, selected=(selected_book==book._id.toString() ? 'selected' : false) ) #{book.title}
         
     div.form-group
-      label(for='imprint') Imprint:
+      label(for='imprint') Edicion:
       input#imprint.form-control(type='text', placeholder='Publisher and date information' name='imprint' required='true' value=(undefined===bookinstance ? '' : bookinstance.imprint) )
     div.form-group
-      label(for='due_back') Date when book available:
+      label(for='due_back') Fecha de Disponibilidad:
       input#due_back.form-control(type='date', name='due_back' value=(undefined===bookinstance ? '' : bookinstance.due_back_yyyy_mm_dd))
             
     div.form-group
-      label(for='status') Status:
+      label(for='status') Estatus:
       select#status.form-control(type='select', placeholder='Select status' name='status' required='true' )
-        option(value='Maintenance' selected=(undefined===bookinstance || bookinstance.status!='Maintenance' ? false:'selected')) Maintenance
-        option(value='Available' selected=(undefined===bookinstance || bookinstance.status!='Available' ? false:'selected')) Available
-        option(value='Loaned' selected=(undefined===bookinstance || bookinstance.status!='Loaned' ? false:'selected')) Loaned
-        option(value='Reserved' selected=(undefined===bookinstance || bookinstance.status!='Reserved' ? false:'selected')) Reserved
+        option(value='Mantenimiento' selected=(undefined===bookinstance || bookinstance.status!='Mantenimiento' ? false:'selected')) Mantenimiento
+        option(value='Disponible' selected=(undefined===bookinstance || bookinstance.status!='Disponible' ? false:'selected')) Disponible
+        option(value='Prestado' selected=(undefined===bookinstance || bookinstance.status!='Prestado' ? false:'selected')) Prestado
+        option(value='Reservado' selected=(undefined===bookinstance || bookinstance.status!='Reservado' ? false:'selected')) Reservado
 
-    button.btn.btn-success(type='submit') Submit
+    button.btn.btn-success(type='submit') Guardar
 
   if errors 
     ul
       for error in errors
         li!= error.msg
+
+  div(class="icon-return")
+      a(href='/catalog/bookinstances' data-toggle="tooltip" data-placement="left" title="Regresar")
+        i(class="fas fa-arrow-alt-circle-left mb-5 mt-5" style="font-size:35px;color: #339af0")
