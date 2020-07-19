@@ -2,8 +2,8 @@ extends layout
 
 block content
   h1 Sumario
-  p
-    a(href='/catalog/bookinstance/create' class="btn btn-success mt-4") Nuevo Registro
+  div(class="container")
+    a(href='/catalog/bookinstance/create' class="btn btn-success mt-4" style="padding:10px") + Nuevo Registro
   
   div(class="container")
     table(class="table table-responsive-md mt-5 mb-5")
@@ -30,8 +30,19 @@ block content
             td 
               a(href=val.url+'/update')
                 i(class="fas fa-pencil-alt pr-2")
-              a(href=val.url+'/delete')
-                i(class="fas fa-trash-alt pr-2")
+              i(class="fas fa-trash-alt pr-2" type="button" data-toggle="modal" data-target="#myModal-" + val._id)
+                .modal.fade(id=("myModal-" + val._id) tabindex="-1" role="dialog" aria-labelledby=("myModalLabel" + val._id) aria-hidden="true")
+                  .modal-dialog
+                    .modal-content
+                      .modal-header
+                        h4.modal-title(id=("myModalLabel" + val._id)) #{val.imprint}
+                      .modal-footer
+                        p(class="mb-3 mr-auto") Estas seguro que deseas eliminar este Edicion?
+                        form.formdat(method='POST' action=val.url+'/delete')
+                          div.form-group
+                            input#id.form-control(type='hidden',name='id', required='true', value=val._id )
+                          button.btn.btn-danger(type='submit') Eliminar
+                          button.btn.btn-primary(type="button",data-dismiss="modal", class="ml-2") Cancelar
               a(href=val.url)
                 i(class="fas fa-info pr-2")
         else

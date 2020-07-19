@@ -2,8 +2,8 @@ extends layout
 
 block content
   h1 Lista de Generos
-  p
-    a(href='/catalog/genre/create' class="btn btn-success mt-4") Nuevo Genero
+  div(class="container")
+    a(href='/catalog/genre/create' class="btn btn-success mt-4" style="padding:10px") + Nuevo Genero
   
   div(class="container")
     table(class="table mt-5 mb-5 text-center")
@@ -18,8 +18,20 @@ block content
             td 
               a(href=genre.url+'/update')
                 i(class="fas fa-pencil-alt pr-3")
-              a(href=genre.url+'/delete')
-                i(class="fas fa-trash-alt pr-3")
+              i(class="fas fa-trash-alt pr-3" type="button" data-toggle="modal" data-target="#myModal-" + genre._id)
+                .modal.fade(id=("myModal-" + genre._id) tabindex="-1" role="dialog" aria-labelledby=("myModalLabel" + genre._id) aria-hidden="true")
+                  .modal-dialog
+                    .modal-content
+                      .modal-header
+                        h4.modal-title(id=("myModalLabel" + genre._id)) #{genre.name}
+                      .modal-footer
+                        p(class="mb-3 mr-auto") Estas seguro que deseas eliminar este Genero?
+                        form.formdat(method='POST' action=genre.url+'/delete')
+                          div.form-group
+                            input#id.form-control(type='hidden',name='id', required='true', value=genre._id )
+                          button.btn.btn-danger(type='submit') Eliminar
+                          button.btn.btn-primary(type="button",data-dismiss="modal", class="ml-2") Cancelar
+                          
               a(href=genre.url)
                 i(class="fas fa-info pr-3")
         else

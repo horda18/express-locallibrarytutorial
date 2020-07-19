@@ -2,23 +2,14 @@ extends layout
 
 block content
 
-  h1(class="mb-4") Eliminar Libro
+
   h3 #{book.title}
   
-  p #[strong Autor:] 
-    a(href=book.author.url) #{book.author.name}
-  p #[strong Síntesis:] #{book.summary}
-  p #[strong Código:] #{book.isbn}
-  p #[strong Genero:] 
-    each val in book.genre
-      a(href=val.url) #{val.name}
-      
 
-  hr
   
   if book_instance.length
   
-    p #[strong Borrar todas las copias antes de eliminar el libro.]
+    p Debes borrar todas las copias antes de poder eliminar el libro.
   
     div(style='margin-left:20px;margin-top:20px')
 
@@ -48,5 +39,4 @@ block content
       button.btn.btn-danger(type='submit') Eliminar
   
   div(class="icon-return")
-    a(href='/catalog/books' data-toggle="tooltip" data-placement="left" title="Regresar")
-      i(class="fas fa-arrow-alt-circle-left mb-5 mt-5" style="font-size:35px;color: #339af0")
+    a(href='/catalog/books' data-toggle="tooltip" data-placement="left" title="Regresar" class="btn previous") &laquo; Regresar

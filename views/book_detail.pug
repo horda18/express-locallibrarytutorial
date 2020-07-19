@@ -14,8 +14,9 @@ block content
         |, 
   
   div(style='margin-left:20px;margin-top:20px' class="mb-5")
+
     h4 Copias
-    
+
     each val in book_instances
       hr
       if val.status=='Disponible'
@@ -34,7 +35,7 @@ block content
       p No existen copias del libro en la libreria.
   
   div(class="icon-return")
-    a(href='/catalog/books' data-toggle="tooltip" data-placement="left" title="Regresar")
-      i(class="fas fa-arrow-alt-circle-left mb-5" style="font-size:35px;color: #339af0")
+    a(href='/catalog/books' data-toggle="tooltip" data-placement="left" title="Regresar" class="btn previous")  &laquo; Regresar
+
 
 

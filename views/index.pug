@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  h1 Bienvenido a la Libreria de Jo An.
-  h5 Encuentre el libro que busca en nuestro catálogo de más de 5,000 volúmenes.
+  h1(class="mb-3") Bienvenido a la Libreria de Jo An.
+  p Encuentre el libro que busca en nuestro catálogo de más de 5,000 volúmenes.
 
   if error
     p Error getting dynamic content.
@@ -10,7 +10,7 @@ block content
     
     div(class="container-fluid")
       div(class="row")
-        div(class="col-sm-4 mt-5")
+        div(class="col-md-4 col-sm-6 mt-5")
           div(class="card")
             div(class="container")
               div(class="row row-cols-2 text-center")
@@ -20,7 +20,7 @@ block content
                   p(class="m-0 v-title") !{data.book_count}+
                     p(class="p-title") Libros
 
-        div(class="col-sm-4 mt-5")
+        div(class="col-md-4 col-sm-6 mt-5")
           div(class="card")
             div(class="container")
               div(class="row row-cols-2 text-center")
@@ -30,7 +30,7 @@ block content
                   p(class="m-0 v-title") !{data.book_instance_count}+
                     p(class="p-title") Copias
 
-        div(class="col-sm-4 mt-5")
+        div(class="col-md-4 col-sm-6 mt-5")
           div(class="card")
             div(class="container")
               div(class="row row-cols-2 text-center")
@@ -40,7 +40,7 @@ block content
                   p(class="m-0 v-title") !{data.book_instance_Disponible_count}+
                     p(class="p-title") Copias Disponibles
 
-        div(class="col-sm-4 mt-5")
+        div(class="col-md-4 col-sm-6 mt-5")
           div(class="card")
             div(class="container")
               div(class="row row-cols-2 text-center")
@@ -50,7 +50,7 @@ block content
                   p(class="m-0 v-title") !{data.author_count}+
                     p(class="p-title") Autores
 
-        div(class="col-sm-4 mt-5 mb-5")
+        div(class="col-md-4 col-sm-6 mt-5 mb-5")
           div(class="card")
             div(class="container")
               div(class="row row-cols-2 text-center")
