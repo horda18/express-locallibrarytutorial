@@ -119,7 +119,7 @@ a{
   margin-top: 100px;
 }
 
-.previous{
+.previous1{
   font-size:20px;
   color: #f5f5f5; 
   background-color:rgb(20, 16, 16);
@@ -127,7 +127,7 @@ a{
   text-decoration: none;
 }
 
-.previous:hover{
+.previous1:hover{
   background-color: #ddd;
   text-decoration: none;
   color: black;
