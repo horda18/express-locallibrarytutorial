@@ -2,11 +2,11 @@ extends layout
 
 block content
   h1 Sumario
-  div(class="container")
+  div(class="container mb-5")
     a(href='/catalog/bookinstance/create' class="btn btn-success mt-4" style="padding:10px") + Nuevo Registro
   
   div(class="container")
-    table(class="table table-responsive-md mt-5 mb-5")
+    table(class="table table-responsive-md mt-5 mb-5" id="table_id")
       thead
         tr
           th Libro
@@ -14,6 +14,7 @@ block content
           th Estado
           th Acciones
 
+      tbody
         each val in bookinstance_list
          tr(class="table-hover")
             td #{val.book.title}
@@ -30,20 +31,26 @@ block content
             td 
               a(href=val.url+'/update')
                 i(class="fas fa-pencil-alt pr-2")
-              i(class="fas fa-trash-alt pr-2" type="button" data-toggle="modal" data-target="#myModal-" + val._id)
-                .modal.fade(id=("myModal-" + val._id) tabindex="-1" role="dialog" aria-labelledby=("myModalLabel" + val._id) aria-hidden="true")
-                  .modal-dialog
-                    .modal-content
-                      .modal-header
-                        h4.modal-title(id=("myModalLabel" + val._id)) #{val.imprint}
-                      .modal-footer
-                        p(class="mb-3 mr-auto") Estas seguro que deseas eliminar este Edicion?
-                        form.formdat(method='POST' action=val.url+'/delete')
-                          div.form-group
-                            input#id.form-control(type='hidden',name='id', required='true', value=val._id )
-                          button.btn.btn-danger(type='submit') Eliminar
-                          button.btn.btn-primary(type="button",data-dismiss="modal", class="ml-2") Cancelar
+              
+              a(href="javascript:void(0);" class="delete-val" data-id=val._id)
+                i(class="fas fa-trash-alt pr-2")
+
               a(href=val.url)
                 i(class="fas fa-info pr-2")
         else
           li There are no book copies in this library
+
+  form(action='' method='POST' id="myFormVal")
+    div(class="modal fade" id="DeleteModalVal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true")
+      div(class="modal-dialog")
+        div(class="modal-content")
+          div(class="modal-header")
+            h5(class="modal-title" id="myModalLabel") Eliminar
+            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+              span(aria-hidden="true") &times;
+          div(class="modal-body")
+            strong Estas seguro que desea eliminar este libro?
+          div( class="modal-footer")
+            input(type="hidden" name="id" class="form-control val_id" required='true')
+            button(type="button" class="btn btn-default" data-dismiss="modal") Cancelar
+            button(type="submit" class="btn btn-danger") Eliminar

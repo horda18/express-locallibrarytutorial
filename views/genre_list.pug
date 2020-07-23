@@ -2,37 +2,44 @@ extends layout
 
 block content
   h1 Lista de Generos
-  div(class="container")
+  div(class="container mb-5")
     a(href='/catalog/genre/create' class="btn btn-success mt-4" style="padding:10px") + Nuevo Genero
   
   div(class="container")
-    table(class="table mt-5 mb-5 text-center")
+    table(class="table mt-5 mb-5 text-center" id="table_id")
       thead
         tr
           th Nombre
           th Acciones
 
+      tbody
         each genre in genre_list
          tr(class="table-hover")
             td #{genre.name}
             td 
               a(href=genre.url+'/update')
-                i(class="fas fa-pencil-alt pr-3")
-              i(class="fas fa-trash-alt pr-3" type="button" data-toggle="modal" data-target="#myModal-" + genre._id)
-                .modal.fade(id=("myModal-" + genre._id) tabindex="-1" role="dialog" aria-labelledby=("myModalLabel" + genre._id) aria-hidden="true")
-                  .modal-dialog
-                    .modal-content
-                      .modal-header
-                        h4.modal-title(id=("myModalLabel" + genre._id)) #{genre.name}
-                      .modal-footer
-                        p(class="mb-3 mr-auto") Estas seguro que deseas eliminar este Genero?
-                        form.formdat(method='POST' action=genre.url+'/delete')
-                          div.form-group
-                            input#id.form-control(type='hidden',name='id', required='true', value=genre._id )
-                          button.btn.btn-danger(type='submit') Eliminar
-                          button.btn.btn-primary(type="button",data-dismiss="modal", class="ml-2") Cancelar
+                i(class="fas fa-pencil-alt pr-2")
+              
+              a(href="javascript:void(0);" class="delete-genre" data-id=genre._id)
+                i(class="fas fa-trash-alt pr-2")
                           
               a(href=genre.url)
-                i(class="fas fa-info pr-3")
+                i(class="fas fa-info pr-2")
         else
           li There are no genres.
+
+  form(action='' method='POST' id="myFormGenre")
+    div(class="modal fade" id="DeleteModalGenre" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true")
+      div(class="modal-dialog")
+        div(class="modal-content")
+          div(class="modal-header")
+            h5(class="modal-title" id="myModalLabel") Eliminar
+            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+              span(aria-hidden="true") &times;
+          div(class="modal-body")
+            strong Estas seguro que desea eliminar este Genero?
+          div( class="modal-footer")
+            input(type="hidden" name="id" class="form-control genre_id" required='true')
+            button(type="button" class="btn btn-default" data-dismiss="modal") Cancelar
+            button(type="submit" class="btn btn-danger") Eliminar
+
